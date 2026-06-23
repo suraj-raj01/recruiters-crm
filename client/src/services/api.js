@@ -51,6 +51,7 @@ export const api = {
   getCandidate: (id) => request(`/api/candidates/${id}`),
   createCandidate: (body) => request("/api/candidates", { method: "POST", body }),
   updateCandidate: (id, body) => request(`/api/candidates/${id}`, { method: "PATCH", body }),
+  deleteCandidate: (id) => request(`/api/candidates/${id}`, { method: "DELETE" }),
   moveCandidate: (id, stage) => request(`/api/candidates/${id}/stage`, { method: "PATCH", body: { stage } }),
   addNote: (id, body) => request(`/api/candidates/${id}/notes`, { method: "POST", body: { body } }),
   getMetrics: () => request("/api/metrics")

@@ -29,7 +29,7 @@ The frontend runs on `http://localhost:5173` and the API runs on `http://localho
 
 The app works in seeded demo mode without MongoDB. To use a real database:
 
-1. Copy `server/.env.example` to `server/.env`.
+1. Set `server/.env`.
 2. Set `MONGODB_URI` to your MongoDB Atlas connection string.
 3. Run `npm run seed` to create demo data.
 4. Run `npm run dev`.

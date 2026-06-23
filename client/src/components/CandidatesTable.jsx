@@ -1,8 +1,8 @@
-import { Calendar, Filter, MapPin, Star } from "lucide-react";
+import { Calendar, EditIcon, Filter, MapPin, Star, Trash } from "lucide-react";
 import { STAGES } from "../utils/constants.js";
 import { dueTone, formatDate } from "../utils/format.js";
 
-export default function CandidatesTable({ candidates, jobs, filters, onFiltersChange, onSelectCandidate }) {
+export default function CandidatesTable({ candidates, jobs, filters, onFiltersChange, onSelectCandidate, onDeleteCandidate }) {
   return (
     <div className="table-view">
       <div className="filter-strip">
@@ -38,6 +38,7 @@ export default function CandidatesTable({ candidates, jobs, filters, onFiltersCh
               <th>Rating</th>
               <th>Next step</th>
               <th>Source</th>
+              {/* <th>Actions</th> */}
             </tr>
           </thead>
           <tbody>
@@ -67,6 +68,24 @@ export default function CandidatesTable({ candidates, jobs, filters, onFiltersCh
                   </span>
                 </td>
                 <td>{candidate.source}</td>
+                {/* <td >
+                  <div className="actions-cell">
+                    <button className="button" onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectCandidate(candidate);
+                    }}>
+                      <EditIcon size={16} />
+                    </button>
+                    <button className="button" onClick={(e) => {
+                      e.stopPropagation();
+                      if (confirm(`Are you sure you want to delete candidate "${candidate.name}"? This action cannot be undone.`)) {
+                        onDeleteCandidate(candidate._id, true);
+                      }
+                    }}>
+                      <Trash size={16} color="red"/>
+                    </button>
+                  </div>
+                </td> */}
               </tr>
             ))}
           </tbody>

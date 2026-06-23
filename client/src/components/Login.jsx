@@ -19,10 +19,14 @@ export default function Login({ loading, error, onLogin }) {
   return (
     <main className="login-screen">
       <section className="login-card" aria-label="Login">
-        <div className="brand-mark">TD</div>
+        <header style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          <span className="brand-mark">TD</span>
+          <div style={{display:'flex',flexDirection:'column',gap:'1px',padding:'0px'}}>
+            <p className="eyebrow" style={{ fontSize: '20px',marginBottom:'-5px' }}>TalentDeck</p>
+            <p>Recruiter ATS</p>
+          </div>
+        </header>
         <div>
-          <p className="eyebrow">TalentDeck</p>
-          <h1>Recruiter ATS</h1>
         </div>
 
         <form className="login-form" onSubmit={submit}>

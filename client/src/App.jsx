@@ -9,6 +9,7 @@ import Login from "./components/Login.jsx";
 import PipelineBoard from "./components/PipelineBoard.jsx";
 import Shell from "./components/Shell.jsx";
 import { api, setAuthToken } from "./services/api.js";
+import Swal from "sweetalert2";
 
 function storedUser() {
   try {
@@ -115,13 +116,13 @@ export default function App() {
   async function login(credentials) {
     setLoginLoading(true);
     setError("");
-
     try {
       const response = await api.login(credentials);
       setAuthToken(response.token);
       setToken(response.token);
       setUser(response.user);
       localStorage.setItem("ats_user", JSON.stringify(response.user));
+      Swal.fire("Login Successful", "You have been logged in successfully.", "success");
     } catch (requestError) {
       setError(requestError.message);
     } finally {
@@ -129,12 +130,26 @@ export default function App() {
     }
   }
 
-  function logout() {
+
+  async function logout() {
+    const result = await Swal.fire({
+      title: "Logout?",
+      text: "Are you sure you want to logout?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Logout",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
+
     setAuthToken("");
     localStorage.removeItem("ats_user");
     setToken("");
     setUser(null);
     setSelectedCandidate(null);
+
+    Swal.fire("Logged Out!", "You have been logged out.", "success");
   }
 
   async function selectCandidate(candidate) {
@@ -158,6 +173,30 @@ export default function App() {
     const response = await api.createCandidate(payload);
     mergeCandidate(response.candidate);
     setCandidateModalOpen(false);
+    await refreshMetrics();
+  }
+
+  async function updateCandidate(candidateId, payload) {
+    const response = await api.updateCandidate(candidateId, payload);
+    mergeCandidate(response.candidate);
+    await refreshMetrics();
+  }
+
+  async function deleteCandidate(candidateId) {
+    const result = await Swal.fire({
+      title: "Delete Candidate?",
+      text: "Are you sure you want to delete this candidate?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, Delete",
+      cancelButtonText: "Cancel",
+    });
+
+    if (!result.isConfirmed) return;
+
+    const response = await api.deleteCandidate(candidateId);
+    setCandidates((current) => current.filter((item) => item.id !== candidateId));
+    setSelectedCandidate(null);
     await refreshMetrics();
   }
 

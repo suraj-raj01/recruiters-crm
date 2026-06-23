@@ -63,7 +63,7 @@ const candidateSchema = new mongoose.Schema(
     },
     source: {
       type: String,
-      enum: ["LinkedIn", "Referral", "Naukri", "Indeed", "Portfolio", "Inbound"],
+      enum: ["LinkedIn", "Referral", "Naukri", "Indeed", "Portfolio", "Inbound", "Other","Apna","WorkIndia"],
       default: "LinkedIn"
     },
     stage: {

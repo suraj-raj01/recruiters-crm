@@ -63,6 +63,10 @@ a {
     #f5f7fb;
 }
 
+#logout-button {
+  display: none;
+}
+
 .login-card {
   width: min(440px, 100%);
   background: var(--panel);
@@ -137,6 +141,18 @@ textarea {
   color: var(--text);
   padding: 10px 12px;
   outline: none;
+}
+.actions-cell{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.button{
+  border: 0;
+  border-radius: 2px;
+  padding: 5px 12px;
+  font-weight: 600;
+  color: blue;
 }
 
 textarea {
@@ -214,7 +230,7 @@ textarea:focus {
 .icon-button {
   width: 40px;
   height: 40px;
-  color: #3e4a5d;
+  color: #c2413b;
   background: #ffffff;
   border: 1px solid var(--border);
 }
@@ -251,6 +267,7 @@ textarea:focus {
 
 .sidebar-brand,
 .sidebar-user {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -563,7 +580,7 @@ textarea:focus {
   align-items: center;
   gap: 8px;
   padding: 5px 15px;
-  border-radius: 999px;
+  border-radius: 5px;
   background: #168a5b;
   color: #fff;
   font-size: 0.82rem;
@@ -1094,8 +1111,7 @@ textarea:focus {
     padding: 0;
   }
 
-  .nav-item span,
-  .sidebar-brand div {
+  .nav-item span {
     display: none;
   }
 
@@ -1136,16 +1152,19 @@ textarea:focus {
   }
 
   .sidebar-user {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    padding: 8px;
-    border-radius: 8px;
-    background-color: #eef0f4;
+    display: none;
   }
 
   .topbar-actions {
     width: 100%;
+  }
+
+  .stack-list,
+  .activity-feed,
+  .notes-list {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 10px;
   }
 
   .topbar-actions .primary-action,
@@ -1189,6 +1208,19 @@ textarea:focus {
     border-radius: 8px;
     position: sticky;
     bottom: 100;
+  }
+
+  #logout-button {
+    display:  block;
+    position: absolute;
+    z-index: 100;
+    right: 15px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    color: #c2413b;
+    background: #ffffff;
+    border: 1px solid var(--border);
   }
 }
 
@@ -1246,14 +1278,14 @@ textarea:focus {
   background: #f8fafc;
 }
 
-.data-table th,
 .data-table td {
-  padding: 16px;
+  padding: 10px 16px;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
 }
 
 .data-table th {
+  padding: 16px;
   font-size: 14px;
   font-weight: 600;
   color: #374151;
@@ -1276,12 +1308,14 @@ textarea:focus {
 .data-table td strong {
   display: block;
   color: #111827;
+  text-transform: uppercase;
   margin-bottom: 5px;
 }
 
 .data-table td span {
   display: inline-flex;
   align-items: center;
+  border-radius: 5px;
   gap: 5px;
   font-size: 13px;
 }

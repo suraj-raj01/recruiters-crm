@@ -21,6 +21,9 @@ export default function Shell({
   return (
     <div className="app-shell">
       <aside className="sidebar">
+        <button id="logout-button" className="icon-button" type="button" onClick={onLogout} title="Sign out">
+          <LogOut size={18} />
+        </button>
         <div className="sidebar-brand">
           <span className="brand-mark small">TD</span>
           <div>

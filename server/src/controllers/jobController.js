@@ -1,5 +1,5 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { createJob, listJobs, updateJob } from "../data/store.js";
+import { createJob, listJobById, listJobs, updateJob } from "../data/store.js";
 
 function requireFields(payload, fields) {
   const missing = fields.filter((field) => !payload[field]);
@@ -13,6 +13,12 @@ function requireFields(payload, fields) {
 
 export const getJobs = asyncHandler(async (req, res) => {
   const jobs = await listJobs();
+  res.json({ jobs });
+});
+
+export const getJobById = asyncHandler(async (req, res) => {
+  console.log(req.params.id,'id')
+  const jobs = await listJobById(req.params.id);
   res.json({ jobs });
 });
 

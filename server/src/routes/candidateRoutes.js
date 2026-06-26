@@ -5,7 +5,8 @@ import {
   patchCandidate,
   patchCandidateStage,
   postCandidate,
-  postCandidateNote
+  postCandidateNote,
+  deleteCandidate
 } from "../controllers/candidateController.js";
 import { protect } from "../middleware/auth.js";
 
@@ -17,6 +18,7 @@ router.post("/", postCandidate);
 router.get("/:id", getCandidateById);
 router.patch("/:id", patchCandidate);
 router.patch("/:id/stage", patchCandidateStage);
+router.delete("/:id", deleteCandidate);
 router.post("/:id/notes", postCandidateNote);
 
 export default router;

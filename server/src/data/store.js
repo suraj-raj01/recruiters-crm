@@ -99,8 +99,13 @@ export async function listJobs() {
     const jobs = await Job.find().sort({ priority: 1, createdAt: -1 });
     return jobs.map(serializeJob);
   }
-
   return clone(memory.jobs);
+}
+
+export async function listJobById(id) {
+  const jobs = await Job.findById(id);
+  console.log(jobs,'jobs')
+  return serializeJob(jobs);
 }
 
 export async function createJob(payload) {
@@ -312,6 +317,14 @@ export async function updateCandidate(id, payload) {
   };
 
   return serializeCandidate(memory.candidates[index]);
+}
+
+export async function deleteCandidates(id) {
+  if(!id){
+    return null;
+  }
+  const data = await Candidate.findByIdAndDelete(id);
+  return serializeCandidate(data);
 }
 
 export async function moveCandidate(id, stage) {

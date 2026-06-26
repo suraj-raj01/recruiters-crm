@@ -2,6 +2,7 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import {
   addCandidateNote,
   createCandidate,
+  deleteCandidates,
   getCandidate,
   listCandidates,
   moveCandidate,
@@ -20,7 +21,10 @@ function requireFields(payload, fields) {
 
 export const getCandidates = asyncHandler(async (req, res) => {
   const candidates = await listCandidates(req.query);
-  res.json({ candidates });
+  const page = Math.max(parseInt(req.query.page, 10) || 1, 1);
+  const limit = Math.max(parseInt(req.query.limit, 10) || 10, 1);
+  const totalPages = Math.ceil(candidates.length / limit);
+  res.json({ candidates, page, totalPages});
 });
 
 export const getCandidateById = asyncHandler(async (req, res) => {
@@ -49,7 +53,16 @@ export const patchCandidate = asyncHandler(async (req, res) => {
   res.json({ candidate });
 });
 
+export const deleteCandidate = asyncHandler(async (req, res) => {
+  const candidate = await deleteCandidates(req.params.id);
+  if (!candidate) {
+    return res.status(404).json({ message: "Candidate not found." });
+  }
+  res.json({ candidate });
+});
+
 export const patchCandidateStage = asyncHandler(async (req, res) => {
+  console.log(req.params.id, req.body.stage,'data')
   const candidate = await moveCandidate(req.params.id, req.body.stage);
 
   if (!candidate) {
